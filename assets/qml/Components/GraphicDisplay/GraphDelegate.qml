@@ -10,6 +10,7 @@ Window {
     visible: true
     borderColor: root.headerVisible ? "#517497" : "transparent"
     property alias isgrapharr: chartView.grapharr
+    property int framenumber: 0
    // property date curdate: new Date()
    // property date maxdate: getmaxtime()
 
@@ -36,7 +37,7 @@ Window {
         ValueAxis {
             id: axisX
             min: 0
-            max: 1024
+            max:  1024 > framenumber ? 1024: framenumber +150
             tickCount: 11
             labelsColor: "#ffffff"
             labelsFont.pointSize: 13
@@ -75,6 +76,7 @@ Window {
                 for(let i = 0 ; i < 30; i++)
                 {
                     Cpp_API_Temperature.update(chartView.series(i),i);
+                    framenumber++
                 }
             }
             // 更新时间轴
